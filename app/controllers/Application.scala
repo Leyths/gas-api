@@ -30,9 +30,11 @@ class Application @Inject() (ws: WSClient, implicit val executionContext: Execut
 
     Logger.info(terminalMap.toString())
 
-    Ok(Json.obj(
+    val json = Json.obj(
       "terminals" -> terminalMap
-    ))
+    );
+    
+    Ok(Json.prettyPrint(json))
   }
 
 
