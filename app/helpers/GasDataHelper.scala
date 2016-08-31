@@ -13,11 +13,12 @@ object GasDataHelper {
 
     val body = GasRequestHelper.requestLatestData(config, ws)
 
-    var lines = body.split("\n")
-    lines = lines.takeWhile(line => !haveReachedTerminalTotals(line))
+    var lines = body.split("\n") // Break up CSV into lines
+    lines = lines.takeWhile(line => !haveReachedTerminalTotals(line)) // Take everything up to total values
 
     var terminals : List[String] = List()
 
+    // Pull out terminal names, reverse, remove the CSV heading and flatten to unique values
     lines.foreach(line => terminals = terminals.::(getTerminalFromLine(line)))
     terminals = terminals.reverse.slice(1, terminals.length).distinct
 

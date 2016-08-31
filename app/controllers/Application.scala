@@ -22,20 +22,17 @@ class Application @Inject() (ws: WSClient, implicit val executionContext: Execut
     var terminalMap : List[JsObject] = List()
 
     terminals.foreach(terminal => {
-      val value = Json.obj(
+      terminalMap = terminalMap.::(Json.obj(
         "name" -> terminal,
         "values" -> GasDataHelper.getTerminal(cache, terminal)
-      )
-      terminalMap = terminalMap.::(value)
+      ))
     })
 
     Logger.info(terminalMap.toString())
 
-    val json = Json.obj(
+    Ok(Json.obj(
       "terminals" -> terminalMap
-    )
-
-    Ok(json)
+    ))
   }
 
 
