@@ -33,8 +33,8 @@ class Application @Inject() (ws: WSClient, implicit val executionContext: Execut
     val json = Json.obj(
       "terminals" -> terminalMap
     );
-    
-    Ok(Json.prettyPrint(json))
+
+    Ok(Json.prettyPrint(json)).as("application/json")
   }
 
 
